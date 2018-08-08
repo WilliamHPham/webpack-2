@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/WilliamHPham/webpack-2/issues"
   },
-  "homepage": "https://github.com/WilliamHPham/webpack-2#readme"
+  "homepage": "https://github.com/WilliamHPham/webpack-2#readme",
+  "devDependencies": {
+    "webpack": "^2.2.0"
+  }
 }
