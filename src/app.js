@@ -1,1 +1,1 @@
-console.log("hello world");
+const css = require('./app.scss');
