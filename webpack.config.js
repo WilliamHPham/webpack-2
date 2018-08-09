@@ -25,6 +25,10 @@ module.exports = {
                 test: /\.js$/,
                 exclude: /node_modules/,
                 use: 'babel-loader'
+            },
+            {
+                test: /\.pug$/,
+                use: 'pug-html-loader'
             }
         ]
     },
@@ -37,23 +41,28 @@ module.exports = {
         // Generates default index.html
         // new HtmlWebpackPlugin(),
         // Generate a index.bundle.html
+        // new HtmlWebpackPlugin({
+        //     title: 'Webpack 2',
+        //     minify:
+        //     {
+        //         collapseWhitespace: true
+        //     },
+        //     hash: true,
+        //     excludeChunks: ['contact'],
+        //     filename: 'index.html',
+        //     template: './src/index.html'
+        // }),
+        // new HtmlWebpackPlugin({
+        //     title: 'Contact Page',
+        //     hash: true,
+        //     chunks: ['contact'],
+        //     filename: 'contact.html',
+        //     template: './src/contact.html'
+        // }),
         new HtmlWebpackPlugin({
-            title: 'Webpack 2',
-            minify:
-            {
-                collapseWhitespace: true
-            },
+            title: 'PUG',
             hash: true,
-            excludeChunks: ['contact'],
-            filename: 'index.html',
-            template: './src/index.html'
-        }),
-        new HtmlWebpackPlugin({
-            title: 'Contact Page',
-            hash: true,
-            chunks: ['contact'],
-            filename: 'contact.html',
-            template: './src/contact.html'
+            template: './src/index.pug'
         }),
         new ExtractTextPlugin({
             filename: 'app.bundle.css',
