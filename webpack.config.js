@@ -42,6 +42,21 @@ module.exports = {
             {
                 test: /\.pug$/,
                 use: 'pug-html-loader'
+            },
+            {
+                test: /\.(gif|png|jpe?g|svg)$/i,
+                use: [
+                    // 'file-loader',
+                    // {
+                    //     options:
+                    //     {
+                    //         name: 'images/[name].[ext]?[hash]'
+                    //     },
+                    //     loader: 'image-webpack-loader',
+                    // },
+                    'file-loader?name=images/[name].[ext]?[hash]',
+                    'image-webpack-loader',    
+                ]
             }
         ]
     },
@@ -49,24 +64,26 @@ module.exports = {
         contentBase: path.join(__dirname, 'dist'),
         compress: true,
         hot: true,
-        open:true,
+        open: true,
         port: 9000
     },
     plugins: [
         // Generates default index.html
         // new HtmlWebpackPlugin(),
+
         // Generate a index.bundle.html
-        // new HtmlWebpackPlugin({
-        //     title: 'Webpack 2',
-        //     minify:
-        //     {
-        //         collapseWhitespace: true
-        //     },
-        //     hash: true,
-        //     excludeChunks: ['contact'],
-        //     filename: 'index.html',
-        //     template: './src/index.html'
-        // }),
+        new HtmlWebpackPlugin({
+            title: 'Webpack 2',
+            minify:
+            {
+                collapseWhitespace: true
+            },
+            hash: true,
+            excludeChunks: ['contact'],
+            filename: 'index.html',
+            template: './src/index.html'
+        }),
+
         // new HtmlWebpackPlugin({
         //     title: 'Contact Page',
         //     hash: true,
@@ -74,12 +91,15 @@ module.exports = {
         //     filename: 'contact.html',
         //     template: './src/contact.html'
         // }),
-        new HtmlWebpackPlugin({
-            title: 'PUG',
-            hash: true,
-            excludeChunks: ['contact'],
-            template: './src/index.pug'
-        }),
+
+        //fix image in pug
+        // new HtmlWebpackPlugin({
+        //     title: 'PUG',
+        //     hash: true,
+        //     excludeChunks: ['contact'],
+        //     template: './src/index.pug'
+        // }),
+
         new ExtractTextPlugin({
             filename: 'app.bundle.css',
             disable: !isProd,

@@ -9,5 +9,4 @@ ReactDOM.render(
 );
 
 import css from './app.scss';
-import header from './pug/header.pug';
-import index from './index.pug';
+import header_pug from './pug/header.pug';
