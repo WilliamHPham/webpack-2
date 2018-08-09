@@ -17,6 +17,11 @@ module.exports = {
                     use: ['css-loader', 'sass-loader'],
                     publicPath: '/dist'
                 })
+            },
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                use: 'babel-loader'
             }
         ]
     },
@@ -27,7 +32,7 @@ module.exports = {
     },
     plugins: [
         // Generates default index.html
-        new HtmlWebpackPlugin(),
+        // new HtmlWebpackPlugin(),
         // Generate a index.bundle.html
         new HtmlWebpackPlugin({
             title: 'Webpack 2',
@@ -36,7 +41,7 @@ module.exports = {
                 collapseWhitespace: true
             },
             hash: true,
-            filename: './index.bundle.html',
+            //filename: './index.bundle.html',
             template: './src/index.html'
         }),
         new ExtractTextPlugin({
