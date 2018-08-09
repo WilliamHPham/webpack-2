@@ -3,10 +3,13 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var path = require("path");
 
 module.exports = {
-    entry: './src/app.js',
+    entry: { 
+        app: './src/app.js',
+        contact: './src/contact.js'
+    },
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'app.bundle.js'
+        filename: '[name].bundle.js'
     },
     module: {
         rules: [
@@ -41,8 +44,16 @@ module.exports = {
                 collapseWhitespace: true
             },
             hash: true,
-            //filename: './index.bundle.html',
+            excludeChunks: ['contact'],
+            filename: 'index.html',
             template: './src/index.html'
+        }),
+        new HtmlWebpackPlugin({
+            title: 'Contact Page',
+            hash: true,
+            chunks: ['contact'],
+            filename: 'contact.html',
+            template: './src/contact.html'
         }),
         new ExtractTextPlugin({
             filename: 'app.bundle.css',
