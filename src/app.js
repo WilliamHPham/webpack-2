@@ -1,9 +1,13 @@
-const css = require('./app.scss');
+// const css = require('./app.scss');
 
 import React from 'react';
 import ReactDOM from 'react-dom';
 
 ReactDOM.render(
-    <h1>Hello, world!</h1>,
+    <p>Hello, world!</p>,
     document.getElementById('root')
 );
+
+import css from './app.scss';
+import header from './pug/header.pug';
+import index from './index.pug';

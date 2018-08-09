@@ -1,9 +1,10 @@
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
-var path = require("path");
+var webpack = require('webpack');
+var path = require('path');
 
 module.exports = {
-    entry: { 
+    entry: {
         app: './src/app.js',
         contact: './src/contact.js'
     },
@@ -15,11 +16,7 @@ module.exports = {
         rules: [
             {
                 test: /\.scss$/,
-                use: ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    use: ['css-loader', 'sass-loader'],
-                    publicPath: '/dist'
-                })
+                use: ['style-loader', 'css-loader', 'sass-loader']
             },
             {
                 test: /\.js$/,
@@ -35,6 +32,7 @@ module.exports = {
     devServer: {
         contentBase: path.join(__dirname, 'dist'),
         compress: true,
+        hot: true,
         port: 9000
     },
     plugins: [
@@ -62,12 +60,17 @@ module.exports = {
         new HtmlWebpackPlugin({
             title: 'PUG',
             hash: true,
+            excludeChunks: ['contact'],
             template: './src/index.pug'
         }),
         new ExtractTextPlugin({
             filename: 'app.bundle.css',
-            disable: false,
+            disable: true,
             allChunks: true
-        })
+        }),
+        new webpack.HotModuleReplacementPlugin(),
+        //enable HMR globally
+        new webpack.NamedModulesPlugin()
+
     ]
 }
