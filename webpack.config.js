@@ -3,6 +3,16 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var webpack = require('webpack');
 var path = require('path');
 
+var isProd = process.env.NODE_ENV === 'production'; //true or fasle
+var cssDev = ['style-loader', 'css-loader', 'sass-loader'];
+var cssPro = ExtractTextPlugin.extract({
+    fallback: 'style-loader',
+    use: ['css-loader', 'sass-loader'],
+    publicPath: '/dist'
+});
+var cssConfig = isProd ? cssPro : cssDev; //if isProd true -> use cssPro
+
+
 module.exports = {
     entry: {
         app: './src/app.js',
@@ -14,10 +24,16 @@ module.exports = {
     },
     module: {
         rules: [
+            //for HRM and use npm run prod
             {
                 test: /\.scss$/,
-                use: ['style-loader', 'css-loader', 'sass-loader']
+                use: cssConfig
             },
+            // for HRM and use npm run dev
+            // {
+            //     test: /\.scss$/,
+            //     use: ['style-loader', 'css-loader', 'sass-loader']
+            // },
             {
                 test: /\.js$/,
                 exclude: /node_modules/,
@@ -33,6 +49,7 @@ module.exports = {
         contentBase: path.join(__dirname, 'dist'),
         compress: true,
         hot: true,
+        open:true,
         port: 9000
     },
     plugins: [
@@ -65,7 +82,7 @@ module.exports = {
         }),
         new ExtractTextPlugin({
             filename: 'app.bundle.css',
-            disable: true,
+            disable: !isProd,
             allChunks: true
         }),
         new webpack.HotModuleReplacementPlugin(),

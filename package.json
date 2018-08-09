@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "d": "webpack -d --watch",
+    "prod": "npm run clean && NODE_ENV=production webpack -p",
     "dev": "npm run clean && webpack-dev-server",
     "clean": "rimraf ./dist/*"
   },
